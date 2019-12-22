@@ -8,3 +8,5 @@ https://github.com/pyrogram/pyrogram/archive/asyncio.zip
 requests
 tgcrypto
 youtube-dl
+urwid
+wxPython
