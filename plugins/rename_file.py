@@ -44,6 +44,7 @@ async def rename_doc(bot, update):
     TRChatBase(update.from_user.id, update.text, "rename")
     if (update.reply_to_message is not None):
         #cmd, file_name = update.text.split(" ", 1)
+        cmd = "/rename"
         file_message_info = update.document
         oname_of_file = file_message_info.file_name
         oname_of_file.replace("@Bollywoodcinemas","")
