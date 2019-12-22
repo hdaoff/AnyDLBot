@@ -65,32 +65,28 @@ async def rename_doc(bot, update):
             text=Translation.DOWNLOAD_START,
             reply_to_message_id=update.message_id
         )
+        new_file_name = download_location + file_name
+        
         c_time = time.time()
-        the_real_download_location = await bot.download_media(
-            message=update.reply_to_message,
-            file_name=download_location,
-            progress=progress_for_pyrogram,
-            progress_args=(
-                Translation.DOWNLOAD_START,
-                a,
-                c_time
-            )
-        )
+        if not os.path.exists(new_file_name):
+          the_real_download_location = await bot.download_media(
+              message=update.reply_to_message,
+              file_name=download_location,
+              progress=progress_for_pyrogram,
+              progress_args=(
+                  Translation.DOWNLOAD_START,
+                  a,
+                  c_time
+              )
+          )
         if the_real_download_location is not None:
             await bot.edit_message_text(
                 text=Translation.SAVED_RECVD_DOC_FILE,
                 chat_id=update.chat.id,
                 message_id=a.message_id
             )
-            if "IndianMovie" in the_real_download_location:
-                await bot.edit_message_text(
-                    text=Translation.RENAME_403_ERR,
-                    chat_id=update.chat.id,
-                    message_id=a.message_id
-                )
-                return
-            new_file_name = download_location + file_name
-            os.rename(the_real_download_location, new_file_name)
+            if not os.path.exists(new_file_name):
+              os.rename(the_real_download_location, new_file_name)
             await bot.edit_message_text(
                 text=Translation.UPLOAD_START,
                 chat_id=update.chat.id,
@@ -137,12 +133,20 @@ async def rename_doc(bot, update):
                 )
             )
             try:
-                os.remove(new_file_name)
+                if (update.text == Translation.SAVED_RECVD_DOC_FILE):
+                  await bot.edit_message_text(
+                    text=Translation.UPLOAD_START,
+                    chat_id=update.chat.id,
+                    message_id=a.message_id
+                  )
+                else:
+                  os.remove(new_file_name)
+                  
                 #os.remove(thumb_image_path)
             except:
                 pass
             await bot.edit_message_text(
-                text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG,
+                text="Uploading Done",
                 chat_id=update.chat.id,
                 message_id=a.message_id,
                 disable_web_page_preview=True
