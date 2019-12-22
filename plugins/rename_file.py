@@ -134,10 +134,10 @@ async def rename_doc(bot, update):
             )
             try:
                 if (update.text == Translation.SAVED_RECVD_DOC_FILE):
-                  await bot.edit_message_text(
-                    text=Translation.UPLOAD_START,
-                    chat_id=update.chat.id,
-                    message_id=a.message_id
+                  await bot.send_message(
+                      chat_id=update.chat.id,
+                      text="Failed But Not deleted",
+                      reply_to_message_id=update.message_id
                   )
                 else:
                   os.remove(new_file_name)
