@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 import os
 import time
+import urllib.request
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
@@ -99,6 +100,9 @@ async def rename_doc(bot, update):
             thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
             if not os.path.exists(thumb_image_path):
                 thumb_image_path = None
+                url = 'https://telegra.ph/file/27e3926eaa1c1d9438c6c.jpg'
+                urllib.request.urlretrieve(url, Config.DOWNLOAD_LOCATION +'/thumbdef.jpg')
+                thumb_image_path = Config.DOWNLOAD_LOCATION +'/thumbdef.jpg'
             else:
                 width = 0
                 height = 0
