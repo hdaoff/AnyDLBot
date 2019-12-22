@@ -48,11 +48,11 @@ async def rename_doc(bot, update):
         omessgae = update.reply_to_message
         file_message_info = omessgae.document
         oname_of_file = file_message_info.file_name
-        oname_of_file.replace("@Bollywoodcinemas","")
-        oname_of_file.replace("@HindiNewMovies","")
-        oname_of_file.replace("@dramaost","")
-        oname_of_file.replace("@Qualitymovies","")
-        oname_of_file.replace("@TvSeriesBay","")
+        oname_of_file = oname_of_file.replace("@Bollywoodcinemas","")
+        oname_of_file = oname_of_file.replace("@HindiNewMovies","")
+        oname_of_file = oname_of_file.replace("@dramaost","")
+        oname_of_file = oname_of_file.replace("@Qualitymovies","")
+        oname_of_file = oname_of_file.replace("@TvSeriesBay","")
         oname_of_file = "@hdarena." + oname_of_file
         
         file_name = oname_of_file
