@@ -156,7 +156,7 @@ async def rename_doc(bot, update):
             if not os.path.isdir(tmp_directory_for_each_user):
                 os.makedirs(tmp_directory_for_each_user)
             images = await generate_screen_shots(
-                the_real_download_location,
+                new_file_name,
                 tmp_directory_for_each_user,
                 False,
                 Config.DEF_WATER_MARK_FILE,
