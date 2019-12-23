@@ -26,6 +26,7 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 from helper_funcs.chat_base import TRChatBase
 from helper_funcs.display_progress import progress_for_pyrogram
+from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
 
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -149,6 +150,54 @@ async def rename_doc(bot, update):
                     c_time
                 )
             )
+            
+            #SS INTEGRATION START
+            tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
+            if not os.path.isdir(tmp_directory_for_each_user):
+                os.makedirs(tmp_directory_for_each_user)
+            images = await generate_screen_shots(
+                the_real_download_location,
+                tmp_directory_for_each_user,
+                False,
+                Config.DEF_WATER_MARK_FILE,
+                5,
+                9
+            )
+            logger.info(images)
+            await bot.edit_message_text(
+                text=Translation.UPLOAD_START,
+                chat_id=update.chat.id,
+                message_id=a.message_id
+            )
+            media_album_p = []
+            if images is not None:
+                i = 0
+                caption = "© @AnyDLBot"
+                for image in images:
+                    if os.path.exists(image):
+                        if i == 0:
+                            media_album_p.append(
+                                pyrogram.InputMediaPhoto(
+                                    media=image,
+                                    caption=caption,
+                                    parse_mode="html"
+                                )
+                            )
+                        else:
+                            media_album_p.append(
+                                pyrogram.InputMediaPhoto(
+                                    media=image
+                                )
+                            )
+                        i = i + 1
+            await bot.send_media_group(
+                chat_id=update.chat.id,
+                disable_notification=True,
+                reply_to_message_id=a.message_id,
+                media=media_album_p
+            )
+            #END OF SS INTEGRATION
+            
             try:
                 if (update.text == Translation.SAVED_RECVD_DOC_FILE):
                   await bot.send_message(
