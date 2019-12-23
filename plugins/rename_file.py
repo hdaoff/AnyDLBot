@@ -87,11 +87,22 @@ async def rename_doc(bot, update):
             )
             if not os.path.exists(new_file_name):
               os.rename(the_real_download_location, new_file_name)
-            await bot.edit_message_text(
-                text=Translation.UPLOAD_START,
-                chat_id=update.chat.id,
-                message_id=a.message_id
-            )
+            lvarr = 1
+            while (lvarr):
+              try:
+                await bot.edit_message_text(
+                    text=Translation.UPLOAD_START,
+                    chat_id=update.chat.id,
+                    message_id=a.message_id
+                )
+                lvarr =0
+              except:
+                await bot.send_message(
+                    chat_id=update.chat.id,
+                    text="Upload Failed But Trying again Bro",
+                    reply_to_message_id=update.message_id
+                )
+            
             logger.info(the_real_download_location)
             thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
             if not os.path.exists(thumb_image_path):
