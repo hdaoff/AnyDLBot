@@ -62,7 +62,7 @@ async def rename_doc(bot, update):
         download_location = Config.DOWNLOAD_LOCATION + "/"
         a = await bot.send_message(
             chat_id=update.chat.id,
-            text=Translation.DOWNLOAD_START,
+            text=Translation.DOWNLOAD_START+file_name,
             reply_to_message_id=update.message_id
         )
         new_file_name = download_location + file_name
@@ -87,7 +87,7 @@ async def rename_doc(bot, update):
             #)
             await bot.send_message(
                 chat_id=update.chat.id,
-                text=Translation.SAVED_RECVD_DOC_FILE,
+                text=Translation.SAVED_RECVD_DOC_FILE+file_name,
                 reply_to_message_id=update.message_id
             )
             if not os.path.exists(new_file_name):
