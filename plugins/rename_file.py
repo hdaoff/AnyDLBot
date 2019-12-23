@@ -88,12 +88,13 @@ async def rename_doc(bot, update):
             if not os.path.exists(new_file_name):
               os.rename(the_real_download_location, new_file_name)
             lvarr = 1
+            bb = 0
             while (lvarr):
               try:
-                await bot.edit_message_text(
-                    text=Translation.UPLOAD_START,
+                bb = await bot.send_message(
                     chat_id=update.chat.id,
-                    message_id=a.message_id
+                    text="Upload will start soon",
+                    reply_to_message_id=update.message_id
                 )
                 lvarr =0
               except:
@@ -139,7 +140,7 @@ async def rename_doc(bot, update):
                 progress=progress_for_pyrogram,
                 progress_args=(
                     Translation.UPLOAD_START,
-                    a, 
+                    bb, 
                     c_time
                 )
             )
