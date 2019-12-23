@@ -80,10 +80,15 @@ async def rename_doc(bot, update):
               )
           )
         if the_real_download_location is not None:
-            await bot.edit_message_text(
-                text=Translation.SAVED_RECVD_DOC_FILE,
+            #await bot.edit_message_text(
+            #    text=Translation.SAVED_RECVD_DOC_FILE,
+            #    chat_id=update.chat.id,
+            #    message_id=a.message_id
+            #)
+            await bot.send_message(
                 chat_id=update.chat.id,
-                message_id=a.message_id
+                text=Translation.SAVED_RECVD_DOC_FILE,
+                reply_to_message_id=update.message_id
             )
             if not os.path.exists(new_file_name):
               os.rename(the_real_download_location, new_file_name)
