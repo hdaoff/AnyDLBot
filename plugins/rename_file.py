@@ -55,6 +55,7 @@ async def rename_doc(bot, update):
         oname_of_file = oname_of_file.replace("@dramaost","")
         oname_of_file = oname_of_file.replace("@Qualitymovies","")
         oname_of_file = oname_of_file.replace("@TvSeriesBay","")
+        oname_of_file = oname_of_file.replace("@NetFlixPrimeMovies","")
         oname_of_file = "@hdarena." + oname_of_file
         
         file_name = oname_of_file
